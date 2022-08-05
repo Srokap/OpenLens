@@ -2,6 +2,9 @@ const fs = require('fs');
 
 var packagejson = require('./package.json');
 
+// name seems to serve as identifier
+packagejson.name = `open-lens-srokap`;
+
 // To have easier time indicating the version installed
 packagejson.productName = `OpenLens-Srokap`;
 
