@@ -59,7 +59,7 @@ jobs:
                 cp dist/OpenLens-Srokap-${{ env.LENS_VERSION }}-latest.*.x86_64.rpm releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.rpm
           else
                 make build
-                cp dist/OpenLens-Srokap*.exe releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
+                cp dist/OpenLens*.exe releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
           fi
         shell: bash
         working-directory: lens
