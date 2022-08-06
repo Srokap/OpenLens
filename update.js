@@ -13,6 +13,6 @@ packagejson.build.publish = {
     provider: "generic"
 };
 
-packagejson.build.win.artifactName = "OpenLens.Setup.${version}.${ext}";
+packagejson.build.win.artifactName = "OpenLens-Srokap.Setup.${version}.${ext}";
 
 fs.writeFileSync('package.json', JSON.stringify(packagejson));

@@ -62,7 +62,7 @@ jobs:
           else
                 make build
                 ls dist/
-                cp dist/OpenLens*.exe releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
+                cp dist/OpenLens-Srokap*.exe releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
           fi
         shell: bash
         working-directory: lens
