@@ -27,6 +27,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.16.0
+          cache: 'npm'
       - name: Update Lens
         run: |
           git clone https://github.com/lensapp/lens.git
