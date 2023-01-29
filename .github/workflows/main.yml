@@ -78,6 +78,8 @@ jobs:
           else
             npm install
             npm run build
+            pwd
+            ls .
             ls dist
             cp dist/OpenLens*.exe dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
           fi
