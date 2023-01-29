@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-var packagejson = require('./package.json');
+var packagejson = require('./packages/open-lens/package.json');
 
 // name seems to serve as identifier
 packagejson.name = `open-lens-srokap`;
