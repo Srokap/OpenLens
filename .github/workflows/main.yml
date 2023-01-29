@@ -40,6 +40,7 @@ jobs:
           if [ "$RUNNER_OS" == "Windows" ]; then
             choco install visualstudio2019buildtools visualstudio2019-workload-vctools
           fi
+          ls -al dist/;
           if [ "$RUNNER_OS" == "macOS" ]; then
             if [ "${CSC_LINK}" = "" ]; then
               unset CSC_LINK
@@ -76,8 +77,7 @@ jobs:
           else
             npm install
             npm run build
-                cp dist/OpenLens-Srokap*.exe releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
-            cp dist/OpenLens*.exe dist/OpenLens-${{ env.LENS_VERSION }}.exe
+            cp dist/OpenLens*.exe dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
           fi
         shell: bash
         working-directory: lens
@@ -109,13 +109,13 @@ jobs:
           name: OpenLens-${{ matrix.os }}
           retention-days: 5
           path: |
-            lens/dist/OpenLens-${{ env.LENS_VERSION }}*.dmg
-            lens/dist/OpenLens-${{ env.LENS_VERSION }}*.AppImage
-            lens/dist/OpenLens-${{ env.LENS_VERSION }}*.deb
-            lens/dist/OpenLens-${{ env.LENS_VERSION }}*.rpm
-            lens/dist/OpenLens-${{ env.LENS_VERSION }}*.zip
-            lens/dist/OpenLens-${{ env.LENS_VERSION }}.exe
-            lens/dist/OpenLens-${{ env.LENS_VERSION }}*.sha256
+            lens/dist/OpenLens-Srokap-${{ env.LENS_VERSION }}*.dmg
+            lens/dist/OpenLens-Srokap-${{ env.LENS_VERSION }}*.AppImage
+            lens/dist/OpenLens-Srokap-${{ env.LENS_VERSION }}*.deb
+            lens/dist/OpenLens-Srokap-${{ env.LENS_VERSION }}*.rpm
+            lens/dist/OpenLens-Srokap-${{ env.LENS_VERSION }}*.zip
+            lens/dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
+            lens/dist/OpenLens-Srokap-${{ env.LENS_VERSION }}*.sha256
 
       - name: Generate Changelog
         run: curl -s https://api.github.com/repos/lensapp/lens/releases/latest | jq -r 'select(.prerelease == false) | .body[0:]' > ${{ github.workspace }}-CHANGELOG.txt
