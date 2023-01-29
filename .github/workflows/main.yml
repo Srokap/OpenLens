@@ -39,7 +39,6 @@ jobs:
           fi
           if [ "$RUNNER_OS" == "macOS" ]; then
                 env ELECTRON_BUILDER_EXTRA_ARGS="--arm64 --x64 --config.dmg.sign=false" make build
-                ls dist/
                 for file in dist/OpenLens-Srokap-${{ env.LENS_VERSION }}-latest.*.dmg; do
                     if [[ "$file" == *"arm64"* ]]; then
                         cp "$file" releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}-arm64.dmg
@@ -56,7 +55,6 @@ jobs:
                 done
           elif [ "$RUNNER_OS" == "Linux" ]; then
                 make build
-                ls dist/
                 cp dist/OpenLens-Srokap-${{ env.LENS_VERSION }}-latest.*.x86_64.AppImage releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.AppImage
                 cp dist/OpenLens-Srokap-${{ env.LENS_VERSION }}-latest.*.amd64.deb releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.deb
                 cp dist/OpenLens-Srokap-${{ env.LENS_VERSION }}-latest.*.x86_64.rpm releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.rpm
@@ -65,7 +63,6 @@ jobs:
                 unset CSC_LINK
                 unset CSC_KEY_PASSWORD
                 make build
-                ls dist/
                 cp dist/OpenLens-Srokap*.exe releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
           fi
         shell: bash
