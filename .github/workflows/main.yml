@@ -24,20 +24,15 @@ jobs:
             export LENS_VERSION=$(cat version)
             echo "LENS_VERSION=$LENS_VERSION" >> $GITHUB_ENV
         shell: bash
-      - name: Checkout Lens
-        run: |
-          git clone https://github.com/lensapp/lens.git
-          cd lens
-          git checkout v${{ env.LENS_VERSION }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16.16.0
-          cache: 'npm'
-          cache-dependency-path: lens/package-lock.json
       - name: Update Lens
         run: |
+          git clone https://github.com/lensapp/lens.git
           cp update.js lens/update.js
           cd lens
+          git checkout v${{ env.LENS_VERSION }}
           node update.js
       - name: Build Lens
         run: |
@@ -45,7 +40,6 @@ jobs:
           if [ "$RUNNER_OS" == "Windows" ]; then
             choco install visualstudio2019buildtools visualstudio2019-workload-vctools
           fi
-          ls -al dist/;
           if [ "$RUNNER_OS" == "macOS" ]; then
             if [ "${CSC_LINK}" = "" ]; then
               unset CSC_LINK
@@ -56,6 +50,7 @@ jobs:
             fi
             npm install
             env ELECTRON_BUILDER_EXTRA_ARGS="--arm64 --x64 --config.dmg.sign=false" npm run build
+            ls dist/
             for file in dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.dmg; do
                     if [[ "$file" == *"arm64"* ]]; then
                         cp "$file" releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}-arm64.dmg
@@ -73,6 +68,7 @@ jobs:
           elif [ "$RUNNER_OS" == "Linux" ]; then
             npm install
             env ELECTRON_BUILDER_EXTRA_ARGS="--x64 --arm64" npm run build
+            ls dist/
             cp dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.x86_64.AppImage releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.AppImage
             cp dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.amd64.deb releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.deb
             cp dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.x86_64.rpm releasefiles/OpenLens-Srokap-${{ env.LENS_VERSION }}.rpm
@@ -82,6 +78,7 @@ jobs:
           else
             npm install
             npm run build
+            ls dist/
             cp dist/OpenLens*.exe dist/OpenLens-Srokap-${{ env.LENS_VERSION }}.exe
           fi
         shell: bash
