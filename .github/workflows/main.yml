@@ -24,16 +24,20 @@ jobs:
             export LENS_VERSION=$(cat version)
             echo "LENS_VERSION=$LENS_VERSION" >> $GITHUB_ENV
         shell: bash
+      - name: Checkout Lens
+        run: |
+          git clone https://github.com/lensapp/lens.git
+          cd lens
+          git checkout v${{ env.LENS_VERSION }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16.16.0
           cache: 'npm'
+          cache-dependency-path: lens/package-lock.json
       - name: Update Lens
         run: |
-          git clone https://github.com/lensapp/lens.git
           cp update.js lens/update.js
           cd lens
-          git checkout v${{ env.LENS_VERSION }}
           node update.js
       - name: Build Lens
         run: |
